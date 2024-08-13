@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace HKTrafficJourneyDemo
 {
+    // last api doc is locate in below link
+    // https://static.data.gov.hk/td/journey-time-indicators-v2/dataspec/dataspec_jtis_tc.pdf
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://data.one.gov.hk/td")]
@@ -66,6 +68,8 @@ namespace HKTrafficJourneyDemo
             new Tuple<string, string>("SJ3","吐露港公路南行近科學園的行車時間顯示器"),
             new Tuple<string, string>("SJ4","新田公路南行近錦綉花園的行車時間顯示器"),
             new Tuple<string, string>("SJ5","屯門公路南行近井財街的行車時間顯示器"),
+            new Tuple<string, string>("K07","西九龍公路西行近港鐵南昌站的行車時間顯示器"),
+
         };
 
         private List<Tuple<string, string>> DESTINIATION = new List<Tuple<string, string>>
@@ -95,6 +99,8 @@ namespace HKTrafficJourneyDemo
             new Tuple<string, string>("MOS","九龍經二號幹線"),
             new Tuple<string, string>("TKOLTT","九龍經將軍澳藍田隧道"),
             new Tuple<string, string>("TKOT","九龍經將軍澳隧道"),
+            new Tuple<string, string>("ACTT","機場經三號幹線"),
+            new Tuple<string, string>("ATSCA","機場經八號幹線"),
         };
 
         private string lOCATION_IDField;
@@ -116,7 +122,9 @@ namespace HKTrafficJourneyDemo
         {
             get
             {
-                return this.LOCATION.Find(dat => dat.Item1 == this.lOCATION_IDField).Item2;
+                Tuple<string, string> output = this.LOCATION.Find(dat => dat.Item1 == this.lOCATION_IDField);
+                if (output == null) return this.lOCATION_IDField;
+                else return "["+ this.lOCATION_IDField + "]" +output.Item2;
             }
             set
             {
@@ -129,7 +137,10 @@ namespace HKTrafficJourneyDemo
         {
             get
             {
-                return this.DESTINIATION.Find(dat => dat.Item1 == this.dESTINATION_IDField).Item2;
+                Tuple<string, string> output = this.DESTINIATION.Find(dat => dat.Item1 == this.dESTINATION_IDField);
+                if (output == null) return this.dESTINATION_IDField;
+                else return "[" + this.dESTINATION_IDField + "]" + output.Item2;
+                //return this.DESTINIATION.Find(dat => dat.Item1 == this.dESTINATION_IDField).Item2;
             }
             set
             {
